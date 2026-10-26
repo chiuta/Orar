@@ -2,7 +2,7 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 1.0.0 · **Ultima actualizare:** 2026-10-14
+**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -19,6 +19,7 @@ Orar este un calendar și un program săptămânal care rulează într-un singur
 - **Recurență:** zilnic / săptămânal / lunar / anual, interval, zile ale săptămânii, „a 2-a marți”, „ultima vineri”, „ultima zi a lunii”, sfârșit prin număr de apariții sau dată (`COUNT` / `UNTIL`), date excluse (`EXDATE`) și date adăugate (`RDATE`). Editorul arată următoarele 10 apariții. La editare sau ștergere se alege: doar această apariție, aceasta și următoarele, sau toată seria.
 - **Calendare:** mai multe calendare, fiecare cu culoare, pornit/oprit din panoul lateral.
 - **Sărbători:** lista legală pentru orice an, cu zilele libere și punțile posibile (doar informativ). Se poate activa și un calendar ortodox (Floriile, Joia Mare, Înălțarea etc.) și se pot adăuga zile libere proprii.
+- **Găsește un interval** (nou în 2.0.0): alegi durata, perioada și participanții (fus orar, program de lucru, sărbătorile legale RO opționale, e-mail opțional) și primești cele mai apropiate intervale în care toți sunt în programul lor, calendarul tău e liber și nu cade în weekend, sărbătoare sau zi exclusă. Poți adăuga intervalul în calendar sau descărca o invitație `.ics` (METHOD:REQUEST, cu ORGANIZER/ATTENDEE dacă ai introdus adresele); Orar nu trimite nimic. Sărbătorile altor țări nu sunt cunoscute: le treci tu la „Zile excluse”.
 - **Șabloane de orar:** ture 2-2-4, trei schimburi rotative, curs/laborator pe săptămâni pare/impare; generează serii de evenimente până la o dată de sfârșit.
 - **Calculator:** zile între două date, zile lucrătoare (fără sărbătorile legale RO, opțional fără zilele libere proprii) și adăugare de zile lucrătoare.
 - **Import / export:** `.ics` (import cu detectare de duplicate: omite / suprascrie / importă oricum; export pentru toate calendarele sau pentru unul), copie de siguranță `.fff.json`, import din CLEPSIDRA, buton „Încarcă exemplu” și „Șterge tot”.
@@ -68,4 +69,5 @@ Licență: MIT — vezi fișierul `LICENSE` din rădăcina depozitului.
 
 ## Istoric
 
+- 2.0.0 — 2026-10-26: „Găsește un interval” (fusuri, sărbători, calendar ocupat) și invitații `.ics`.
 - 1.0.0 — 2026-10-14: prima versiune.
