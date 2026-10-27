@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · **Español** · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versión:** 2.0.0 · **Última actualización:** 2026-10-26
+**Versión:** 2.1.0 · **Última actualización:** 2026-10-27
+
+**Estado:** estable · **Sin conexión:** completo (alarmas y notificaciones solo con la aplicación abierta)
 
 Idiomas de la interfaz: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -24,6 +26,14 @@ Orar es un calendario y un horario semanal que funcionan en un único archivo HT
 - **Importación / exportación:** `.ics` (importación con detección de duplicados: omitir / sobrescribir / importar de todos modos; exportación de todos los calendarios o de uno), copia de seguridad `.fff.json`, importación desde CLEPSIDRA, botones «Cargar ejemplo» y «Borrar todo».
 - **Impresión:** el botón «Imprimir» (semana, mes o agenda) usa un CSS de impresión sin paneles laterales.
 - **Alarmas:** véase más abajo, en los límites.
+
+## Alarmas con la aplicación cerrada: límite verificado y alternativa
+
+Para tener alarmas incluso con Orar cerrado: exporta el calendario como .ics (las alarmas se escriben en el archivo como VALARM) e impórtalo en el calendario del teléfono o del ordenador, que puede hacerlas sonar aunque Orar no se esté ejecutando. Las notificaciones programadas del navegador no están disponibles (Chrome abandonó la API Notification Triggers) y las push requieren un servidor que Orar no tiene.
+
+Las notificaciones del sistema pasan por el Service Worker cuando controla la página (necesario en Android) y, si no, directamente desde la pestaña; en ambos casos solo mientras Orar está abierto, incluso en segundo plano.
+
+Fuentes: [Notification Triggers API — el desarrollo ha terminado](https://developer.chrome.com/docs/web-platform/notification-triggers) y [Periodic Background Sync — solo aplicaciones instaladas, frecuencia decidida por el navegador y no por la aplicación](https://developer.chrome.com/docs/capabilities/periodic-background-sync). Por eso Orar solo puede notificar mientras está abierto; el Service Worker existente solo sirve para el funcionamiento sin conexión.
 
 ## Lo que NO hace, y los límites
 

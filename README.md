@@ -2,7 +2,9 @@
 
 **English** · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Last updated:** 2026-10-26
+**Version:** 2.1.0 · **Last updated:** 2026-10-27
+
+**Status:** stable · **Offline:** complete (alarms and notifications only while the app is open)
 
 Interface languages: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -24,6 +26,14 @@ Orar is a calendar and weekly schedule that runs in a single HTML file, with no 
 - **Import / export:** `.ics` (import with duplicate detection: skip / overwrite / import anyway; export for all calendars or for one), `.fff.json` backup copy, import from CLEPSIDRA, a "Load example" button and "Delete all".
 - **Printing:** the "Print" button (week, month or agenda) uses a print CSS without side panels.
 - **Alarms:** see below, under the limits.
+
+## Alarms with the app closed: verified limit and alternative
+
+For alarms even when Orar is closed: export the calendar as .ics (alarms are written to the file as VALARM) and import it into your phone’s or computer’s calendar, which can ring them while Orar is not running. Scheduled browser notifications are not available (Chrome abandoned the Notification Triggers API), and push notifications need a server that Orar does not have.
+
+System notifications go through the Service Worker when it controls the page (required on Android) and otherwise directly from the tab; in both cases only while Orar is open, even in the background.
+
+Sources: [Notification Triggers API — development has ended](https://developer.chrome.com/docs/web-platform/notification-triggers) and [Periodic Background Sync — installed apps only, frequency decided by the browser, not the app](https://developer.chrome.com/docs/capabilities/periodic-background-sync). So Orar can notify only while it is open; the existing Service Worker serves offline operation only.
 
 ## What it does NOT do, and the limits
 
@@ -68,5 +78,6 @@ Licence: MIT — see the `LICENSE` file in the repository root.
 
 ## History
 
+- 2.1.0 — 2026-10-27: system notifications go through the Service Worker when it controls the page (required on Android), with a `new Notification` fallback; the limit on alarms with the app closed is documented, with the `.ics`/VALARM alternative; Status/Offline.
 - 2.0.0 — 2026-10-26: “Find a time slot” (time zones, holidays, busy calendar) and `.ics` invitations.
 - 1.0.0 — 2026-10-14: first version.

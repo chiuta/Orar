@@ -18,6 +18,7 @@ const URL_APP = 'file://' + INDEX;
 const AXE = process.env.AXE_PATH || '/tmp/claude-0/-home-claude/78529928-3825-51c3-b9bd-0e81655ab6bc/scratchpad/sweep/node_modules/axe-core/axe.min.js';
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'orar-test-'));
 const NOW = '2026-10-14T10:00:00+03:00';
+const APPV = JSON.parse(fs.readFileSync(path.join(HERE, '..', 'app.json'), 'utf8')); // versiunea/data se citesc din app.json
 
 const results = [];
 const only = process.argv[2];
@@ -545,9 +546,9 @@ await T('pornire: fără erori, fără CSP, fără rețea; meta, versiune, CSP e
   const p = await newPage();
   await expectClean(p);
   assert.equal(await p.getAttribute('html', 'lang'), 'ro');
-  assert.equal(await p.textContent('#app-version'), 'v 2.0.0 · 2026-10-26');
-  assert.equal(await p.getAttribute('meta[name=application-version]', 'content'), '2.0.0');
-  assert.equal(await p.getAttribute('meta[name=last-updated]', 'content'), '2026-10-26');
+  assert.equal(await p.textContent('#app-version'), `v ${APPV.version} · ${APPV.updated}`);
+  assert.equal(await p.getAttribute('meta[name=application-version]', 'content'), APPV.version);
+  assert.equal(await p.getAttribute('meta[name=last-updated]', 'content'), APPV.updated);
   assert.ok((await p.getAttribute('meta[name=description]', 'content')).length > 40);
   assert.equal(await p.title(), 'Orar');
   const html = fs.readFileSync(INDEX, 'utf8');
@@ -970,7 +971,7 @@ await T('copie de siguranță .fff.json: format, export, import cu confirmare, �
   const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#d-bk-exp')]);
   const f = path.join(TMP, 'backup.fff.json'); await dl.saveAs(f);
   const b = JSON.parse(fs.readFileSync(f, 'utf8'));
-  assert.equal(b.format, 'fff-bundle'); assert.equal(b.schema, 1); assert.equal(b.app, 'orar'); assert.equal(b.version, '2.0.0'); assert.equal(b.updated, '2026-10-26');
+  assert.equal(b.format, 'fff-bundle'); assert.equal(b.schema, 1); assert.equal(b.app, 'orar'); assert.equal(b.version, APPV.version); assert.equal(b.updated, APPV.updated);
   assert.ok(b.exported && Object.keys(b.data).every(k => k.startsWith('fff.orar.')));
   assert.ok(JSON.parse(b.data['fff.orar.events']).length >= 10);
   const n = await p.evaluate(() => ORAR.S.events.length);

@@ -2,7 +2,9 @@
 
 [English](README.md) · **Română** · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versiune:** 2.0.0 · **Ultima actualizare:** 2026-10-26
+**Versiune:** 2.1.0 · **Ultima actualizare:** 2026-10-27
+
+**Stare:** stabil · **Offline:** complet (alarmele și notificările doar cât aplicația este deschisă)
 
 Limbile interfeței: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -25,6 +27,14 @@ Orar este un calendar și un program săptămânal care rulează într-un singur
 - **Import / export:** `.ics` (import cu detectare de duplicate: omite / suprascrie / importă oricum; export pentru toate calendarele sau pentru unul), copie de siguranță `.fff.json`, import din CLEPSIDRA, buton „Încarcă exemplu” și „Șterge tot”.
 - **Tipărire:** butonul „Tipărește” (săptămână, lună sau agendă) folosește un CSS de tipărire fără panouri laterale.
 - **Alarme:** vezi mai jos, la limite.
+
+## Alarme cu aplicația închisă: limită verificată și alternativă
+
+Pentru alarme și cu Orar închis: exportă calendarul în .ics (alarmele pleacă în fișier ca VALARM) și importă-l în calendarul telefonului sau al computerului, care le poate suna și când Orar nu rulează. Notificările programate din browser nu sunt disponibile (API-ul Notification Triggers a fost abandonat de Chrome), iar cele push cer un server pe care Orar nu îl are.
+
+Notificările de sistem se trimit prin Service Worker când acesta controlează pagina (necesar pe Android) și, altfel, direct din filă; în ambele cazuri doar cât timp Orar este deschis, chiar și în fundal.
+
+Surse: [Notification Triggers API — dezvoltarea a fost oprită](https://developer.chrome.com/docs/web-platform/notification-triggers) și [Periodic Background Sync — doar aplicații instalate, frecvență hotărâtă de browser, nu de aplicație](https://developer.chrome.com/docs/capabilities/periodic-background-sync). Orar poate astfel să notifice doar cât timp este deschis; Service Worker-ul existent servește exclusiv funcționarea offline.
 
 ## Ce NU face și limitele
 
@@ -69,5 +79,6 @@ Licență: MIT — vezi fișierul `LICENSE` din rădăcina depozitului.
 
 ## Istoric
 
+- 2.1.0 — 2026-10-27: notificările de sistem trec prin Service Worker când acesta controlează pagina (necesar pe Android), cu rezervă `new Notification`; limita alarmelor cu aplicația închisă documentată, cu alternativa `.ics`/VALARM; Stare/Offline.
 - 2.0.0 — 2026-10-26: „Găsește un interval” (fusuri, sărbători, calendar ocupat) și invitații `.ics`.
 - 1.0.0 — 2026-10-14: prima versiune.
