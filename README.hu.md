@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · **Magyar**
 
-**Verzió:** 2.0.0 · **Utolsó frissítés:** 2026-10-26
+**Verzió:** 2.1.0 · **Utolsó frissítés:** 2026-10-27
+
+**Állapot:** stabil · **Offline:** teljes (riasztások és értesítések csak nyitott alkalmazással)
 
 A felület nyelvei: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -24,6 +26,14 @@ Az Orar egy naptár és heti órarend, amely egyetlen HTML-fájlban fut, szerver
 - **Import / export:** `.ics` (import duplikátumok felismerésével: kihagyás / felülírás / mindenképp importálás; export az összes naptárra vagy egyre), `.fff.json` biztonsági másolat, import a CLEPSIDRA-ból, „Példa betöltése” és „Összes törlése” gombok.
 - **Nyomtatás:** a „Nyomtatás” gomb (hét, hónap vagy napirend) oldalsó panelek nélküli nyomtatási CSS-t használ.
 - **Riasztások:** lásd lent, a korlátoknál.
+
+## Riasztások zárt alkalmazással: ellenőrzött korlát és alternatíva
+
+Riasztásokhoz akkor is, ha az Orar be van zárva: exportáld a naptárat .ics fájlba (a riasztások VALARM-ként kerülnek a fájlba), és importáld a telefon vagy a számítógép naptárába, amely akkor is megszólaltathatja őket, ha az Orar nem fut. Az ütemezett böngészőértesítések nem érhetők el (a Chrome felhagyott a Notification Triggers API-val), a push értesítésekhez pedig szerver kell, amellyel az Orar nem rendelkezik.
+
+A rendszerértesítések a Service Workeren át mennek, ha az irányítja az oldalt (Androidon ez szükséges), egyébként közvetlenül a lapról; mindkét esetben csak amíg az Orar nyitva van, a háttérben is.
+
+Források: [Notification Triggers API — a fejlesztés véget ért](https://developer.chrome.com/docs/web-platform/notification-triggers) és [Periodic Background Sync — csak telepített alkalmazásoknak, a gyakoriságot a böngésző dönti el, nem az alkalmazás](https://developer.chrome.com/docs/capabilities/periodic-background-sync). Az Orar tehát csak nyitva tartva tud értesíteni; a meglévő Service Worker kizárólag az offline működést szolgálja.
 
 ## Mit NEM csinál, és a korlátok
 

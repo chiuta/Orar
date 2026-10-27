@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · [Italiano](README.it.md) · [Español](README.es.md) · [Português](README.pt.md) · **Deutsch** · [Magyar](README.hu.md)
 
-**Version:** 2.0.0 · **Zuletzt aktualisiert:** 2026-10-26
+**Version:** 2.1.0 · **Zuletzt aktualisiert:** 2026-10-27
+
+**Status:** stabil · **Offline:** vollständig (Alarme und Benachrichtigungen nur bei geöffneter App)
 
 Oberflächensprachen: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -24,6 +26,14 @@ Orar ist ein Kalender und Wochenplan, der in einer einzigen HTML-Datei läuft, o
 - **Import / Export:** `.ics` (Import mit Erkennung von Duplikaten: überspringen / überschreiben / trotzdem importieren; Export für alle Kalender oder für einen), Sicherungskopie `.fff.json`, Import aus CLEPSIDRA, Schaltflächen „Beispiel laden“ und „Alles löschen“.
 - **Drucken:** Die Schaltfläche „Drucken“ (Woche, Monat oder Agenda) verwendet ein Druck-CSS ohne Seitenleisten.
 - **Alarme:** siehe unten, bei den Einschränkungen.
+
+## Alarme bei geschlossener App: geprüfte Grenze und Alternative
+
+Für Alarme auch bei geschlossenem Orar: Kalender als .ics exportieren (die Alarme stehen als VALARM in der Datei) und in den Kalender von Telefon oder Computer importieren, der sie auch klingeln lassen kann, wenn Orar nicht läuft. Geplante Browser-Benachrichtigungen sind nicht verfügbar (Chrome hat die Notification-Triggers-API aufgegeben), und Push-Benachrichtigungen brauchen einen Server, den Orar nicht hat.
+
+Systembenachrichtigungen laufen über den Service Worker, wenn dieser die Seite steuert (unter Android nötig), sonst direkt aus dem Tab; in beiden Fällen nur, solange Orar geöffnet ist, auch im Hintergrund.
+
+Quellen: [Notification Triggers API — die Entwicklung wurde beendet](https://developer.chrome.com/docs/web-platform/notification-triggers) und [Periodic Background Sync — nur installierte Apps, Häufigkeit vom Browser bestimmt, nicht von der App](https://developer.chrome.com/docs/capabilities/periodic-background-sync). Orar kann daher nur benachrichtigen, solange es geöffnet ist; der vorhandene Service Worker dient nur dem Offline-Betrieb.
 
 ## Was es NICHT tut, und die Einschränkungen
 

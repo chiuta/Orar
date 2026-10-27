@@ -2,7 +2,9 @@
 
 [English](README.md) · [Română](README.ro.md) · [Français](README.fr.md) · **Italiano** · [Español](README.es.md) · [Português](README.pt.md) · [Deutsch](README.de.md) · [Magyar](README.hu.md)
 
-**Versione:** 2.0.0 · **Ultimo aggiornamento:** 2026-10-26
+**Versione:** 2.1.0 · **Ultimo aggiornamento:** 2026-10-27
+
+**Stato:** stabile · **Offline:** completo (allarmi e notifiche solo con l’app aperta)
 
 Lingue dell'interfaccia: **Română, English, Français, Italiano, Español, Português (PT), Deutsch, Magyar**
 
@@ -24,6 +26,14 @@ Orar è un calendario e un orario settimanale che funzionano in un unico file HT
 - **Importazione / esportazione:** `.ics` (importazione con rilevamento dei duplicati: salta / sovrascrivi / importa comunque; esportazione per tutti i calendari o per uno solo), copia di riserva `.fff.json`, importazione da CLEPSIDRA, pulsanti «Carica esempio» e «Elimina tutto».
 - **Stampa:** il pulsante «Stampa» (settimana, mese o agenda) usa un CSS di stampa senza pannelli laterali.
 - **Sveglie:** vedi sotto, nei limiti.
+
+## Allarmi con l’app chiusa: limite verificato e alternativa
+
+Per avere allarmi anche con Orar chiuso: esporta il calendario in .ics (gli allarmi vengono scritti nel file come VALARM) e importalo nel calendario del telefono o del computer, che può farli suonare anche quando Orar non è in esecuzione. Le notifiche programmate del browser non sono disponibili (Chrome ha abbandonato l’API Notification Triggers) e quelle push richiedono un server che Orar non ha.
+
+Le notifiche di sistema passano dal Service Worker quando controlla la pagina (necessario su Android) e altrimenti direttamente dalla scheda; in entrambi i casi solo finché Orar è aperto, anche in secondo piano.
+
+Fonti: [Notification Triggers API — lo sviluppo è terminato](https://developer.chrome.com/docs/web-platform/notification-triggers) e [Periodic Background Sync — solo app installate, frequenza decisa dal browser e non dall’app](https://developer.chrome.com/docs/capabilities/periodic-background-sync). Orar può quindi notificare solo finché è aperto; il Service Worker esistente serve solo al funzionamento offline.
 
 ## Cosa NON fa, e i limiti
 
