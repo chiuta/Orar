@@ -2,6 +2,10 @@
 
 Format: SemVer MAJOR.MINOR.PATCH. Date: AAAA-LL-ZZ.
 
+## 2.2.1 — 2026-11-02 (anterior: 2.2.0)
+
+- Corecție legală (2026-11-02): 6 ianuarie (Boboteaza) și 7 ianuarie (Soborul Sf. Ioan Botezătorul) sunt zile de sărbătoare legală conform art. 139 alin. (1) Codul muncii, introduse prin Legea nr. 52/2023 (în vigoare din 9 martie 2023); le-am adăugat în sărbătorile legale (8 limbi) și în test.
+
 ## 2.2.0 — 2026-11-01
 
 - Corectat: adaptorul «Trimite la…» nu mai aruncă eroare când kitul FFF lipsește (gardian pe fiecare bloc; găsit de testul «fără kit» din CI).
