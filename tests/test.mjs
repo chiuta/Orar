@@ -221,7 +221,7 @@ await T('sărbători legale 2024–2035: set complet, Vinerea Mare, Rusalii, 1 i
   for (let y = 2024; y <= 2035; y++) {
     const E = EASTER[y], exp = new Map();
     const add = (d, k) => { if (!exp.has(d)) exp.set(d, []); exp.get(d).push(k); };
-    add(`${y}-01-01`, 'h_newyear'); add(`${y}-01-02`, 'h_newyear2'); add(`${y}-01-24`, 'h_unire'); add(addDays(E, -2), 'h_vinerea'); add(E, 'h_pasti'); add(addDays(E, 1), 'h_pasti2');
+    add(`${y}-01-01`, 'h_newyear'); add(`${y}-01-02`, 'h_newyear2'); add(`${y}-01-06`, 'h_boboteaza'); add(`${y}-01-07`, 'h_ioan'); add(`${y}-01-24`, 'h_unire'); add(addDays(E, -2), 'h_vinerea'); add(E, 'h_pasti'); add(addDays(E, 1), 'h_pasti2');
     add(`${y}-05-01`, 'h_may1'); add(`${y}-06-01`, 'h_child'); add(addDays(E, 49), 'h_rusalii'); add(addDays(E, 50), 'h_rusalii2'); add(`${y}-08-15`, 'h_aug15'); add(`${y}-11-30`, 'h_andrei'); add(`${y}-12-01`, 'h_dec1'); add(`${y}-12-25`, 'h_xmas'); add(`${y}-12-26`, 'h_xmas2');
     const got = new Map(res[y].map(([d, k]) => [d, k.slice().sort()]));
     assert.equal(got.size, exp.size, 'număr de date distincte ' + y);
