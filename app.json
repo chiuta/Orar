@@ -16,8 +16,8 @@
     "clepsidra.events",
     "clepsidra.schedule"
   ],
-  "sizeBytes": 493197,
-  "sha256": "9a876cf86ff78efc71ad9345c2ab667451eb07fb5f33f3d470c9b2a500c0381f",
+  "sizeBytes": 633581,
+  "sha256": "59abebb5f78a29729e5cb364938962cba5a8ef686498d840bdcba90518b5f046",
   "csp": {
     "present": true,
     "directives": {
@@ -59,6 +59,10 @@
       "core",
       "label",
       "bundle",
+      "qr",
+      "p2p",
+      "sync",
+      "history",
       "bridge"
     ]
   },
@@ -68,6 +72,10 @@
       "core",
       "label",
       "bundle",
+      "qr",
+      "p2p",
+      "sync",
+      "history",
       "bridge"
     ]
   },
