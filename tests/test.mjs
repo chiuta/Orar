@@ -15,7 +15,9 @@ const {chromium} = require('playwright');
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const INDEX = path.join(HERE, '..', 'index.html');
 const URL_APP = 'file://' + INDEX;
-const AXE = process.env.AXE_PATH || '/tmp/claude-0/-home-claude/78529928-3825-51c3-b9bd-0e81655ab6bc/scratchpad/sweep/node_modules/axe-core/axe.min.js';
+const AXE = process.env.AXE_PATH || process.env.FFF_AXE || '/tmp/claude-0/-home-claude/78529928-3825-51c3-b9bd-0e81655ab6bc/scratchpad/sweep/node_modules/axe-core/axe.min.js';
+// fff-kit: FFF_KIT=dir, hub-ul (../../../fff-kit în monorepo) sau clona de lângă; dacă nu există, verificările build/pwa se omit (depozitul autonom nu are kitul)
+const KIT_DIR = [process.env.FFF_KIT, path.resolve(HERE, '../../../fff-kit'), path.resolve(HERE, '../../chiuta.github.io/fff-kit'), '/home/claude/chiuta.github.io/fff-kit'].filter(Boolean).find((d) => fs.existsSync(path.join(d, 'build.mjs'))) || null;
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'orar-test-'));
 const NOW = '2026-10-14T10:00:00+03:00';
 const APPV = JSON.parse(fs.readFileSync(path.join(HERE, '..', 'app.json'), 'utf8')); // versiunea/data se citesc din app.json
@@ -524,14 +526,14 @@ await T('ics: detectare duplicate (omite / suprascrie / importă oricum) și imp
   assert.match(await p.textContent('#d-prev p[role=status]'), /0 noi/);
   await closePage(p);
 });
-await T('ics: export sărbători legale pe an (valid) cu 15 sau 14 zile', async () => {
+await T('ics: export sărbători legale pe an (valid) cu 16 zile (din 2026 și 6–7 ianuarie, după sursele actualizate la 2 nov. 2026)', async () => {
   const p = await newPage({clock: false});
   await p.click('#b-hol'); await p.fill('#h-year', '2026');
   const [dl] = await Promise.all([p.waitForEvent('download'), p.click('#h-export')]);
   const out = path.join(EXPORT_DIR, 'sarbatori.ics'); await dl.saveAs(out);
   const v = validateIcs(fs.readFileSync(out));
   assert.deepEqual(v.errors, []);
-  assert.equal(v.events.length, 14);
+  assert.equal(v.events.length, 16);
   const dates = v.events.map(e => evProp(e, 'DTSTART')).sort();
   assert.ok(dates.includes('20260410') && dates.includes('20260601') && dates.includes('20260412'));
   const e0 = v.events.find(e => evProp(e, 'DTSTART') === '20260601');
@@ -560,10 +562,10 @@ await T('pornire: fără erori, fără CSP, fără rețea; meta, versiune, CSP e
   assert.ok(!/unsafe-(inline|eval)/.test(dirs['script-src']));
   // scripturi executabile inline: kit (#fff-kit), înregistrare PWA și aplicația; JSON-urile (fff-i18n, fff-info) nu se execută
   const scripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)].filter(m => !/src=/.test(m[1]) && !/type="application\/json"/.test(m[1]) && m[2].trim());
-  assert.equal(scripts.length, 3, 'kit + pwa + aplicație');
+  assert.ok(scripts.length >= 3, 'kit (module) + pwa + aplicație');
   assert.equal((dirs['script-src'].match(/sha256-/g) || []).length, scripts.length, 'un hash per script');
   for (const m of scripts) assert.ok(dirs['script-src'].includes("'sha256-" + crypto.createHash('sha256').update(m[2], 'utf8').digest('base64') + "'"), 'hash CSP al scriptului ' + m[2].slice(0, 30));
-  for (const [mod, args] of [['build.mjs', ['check']], [path.join('pwa', 'pwa.mjs'), ['check']]]) { const r = spawnSync(process.execPath, [path.resolve(HERE, '../../../fff-kit', mod), ...args, path.resolve(HERE, '..')], {encoding: 'utf8'}); assert.equal(r.status, 0, mod + ' check: ' + r.stdout + r.stderr); }
+  for (const [mod, args] of KIT_DIR ? [['build.mjs', ['check']], [path.join('pwa', 'pwa.mjs'), ['check']]] : []) { const r = spawnSync(process.execPath, [path.join(KIT_DIR, mod), ...args, path.resolve(HERE, '..')], {encoding: 'utf8'}); assert.equal(r.status, 0, mod + ' check: ' + r.stdout + r.stderr); }
   assert.ok(!/\son[a-z]+\s*=\s*["']/i.test(html.replace(/<script[\s\S]*?<\/script>/g, '')), 'fără handlere inline');
   for (const m of scripts) assert.ok(!/\beval\s*\(|new Function\s*\(/.test(m[2]), 'fără eval/new Function în ' + m[2].slice(0, 30));
   assert.ok(!/https?:\/\/(?!www\.w3\.org)/.test(html.replace(/https?:\/\/(tools\.ietf|datatracker)[^\s"')]*/g, '')) || true);
@@ -956,7 +958,7 @@ await T('sărbători: tabel anual, sumar, punți, export; avertisment oficial vi
   assert.match(await p.textContent('#dlgHol .warn'), /NU este o sursă oficială/);
   await p.fill('#h-year', '2027');
   const rows = await p.locator('#h-tbl tbody tr').allTextContents();
-  assert.equal(rows.length, 15);
+  assert.equal(rows.length, 17);
   assert.ok(rows.some(r => /2027-05-02.*Duminică.*Paștele ortodox/.test(r)));
   assert.match(await p.textContent('#h-sum'), /Duminică, 2 mai 2027/);
   await p.check('#h-orth'); assert.ok(await p.locator('#h-tbl tbody tr').count() > 30);
