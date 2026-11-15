@@ -2,7 +2,7 @@
   "schema": 1,
   "slug": "orar",
   "name": "Orar",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "updated": "2026-11-15",
   "description": "Orar: calendar și program cu vizualizări lună/săptămână/zi/agendă, evenimente recurente, fusuri orare, alarme, sărbători legale din România, import și export .ics. Rulează local, nu trimite nimic.",
   "egress": [],
@@ -20,8 +20,8 @@
     "clepsidra.events",
     "clepsidra.schedule"
   ],
-  "sizeBytes": 939960,
-  "sha256": "2401b7766d2880d67f6c4de7b92e17fbcaaf8393e09d7ddcb3f1ba7ac5c8882a",
+  "sizeBytes": 957996,
+  "sha256": "2d26c40f209fa9fd66a245e4861b76fee780b54657c775b83059a7088fefbf1a",
   "csp": {
     "present": true,
     "directives": {
@@ -64,6 +64,7 @@
       "exit",
       "view",
       "a11y",
+      "share",
       "ux",
       "label",
       "bundle",
@@ -75,12 +76,13 @@
     ]
   },
   "kit": {
-    "version": "1.6.0",
+    "version": "1.7.0",
     "modules": [
       "core",
       "exit",
       "view",
       "a11y",
+      "share",
       "ux",
       "label",
       "bundle",
